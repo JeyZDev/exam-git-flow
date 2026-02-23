@@ -1,0 +1,43 @@
+spring:
+  application: 
+    name: store-mate-api
+  
+  config:
+    import: optional:file:.env[.properties]
+  
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
+    
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 25MB
+      
+  jackson:
+    time-zone: Asia/Bangkok
+    
+  flyway:
+    locations: classpath:db/migration
+    
+  jpa:
+    open-in-view: false
+    
+springdoc:
+  packages-to-scan: com.sm.jeyz9.storemateapi.controllers
+  
+jwt-secret: ${JWT_SECRET}
+jwt-expiration: 604800000
+
+front_end_url: ${FRONTEND_URL}
+thaibulksms:
+  key: ${THAIBULKEMAIL_KEY}
+  secret: ${THAIBULKEMAIL_SECRET}
+  send_url: ${THAIBULKEMAIL_SEND_URL}
+  email_sender: ${THAIBULKEMAIL_EMAIL_SENDER}
+  reset_password_template_uuid: ${THAIBULKEMAIL_RESET_PASSWORD_TEMPLATE_UUID}
+
+supabase:
+  url: ${SUPABASE_URL}
+  key: ${SUPABASE_KEY}
+  bucket:
+    product: ${SUPABASE_BUCKET_PRODUCT}
