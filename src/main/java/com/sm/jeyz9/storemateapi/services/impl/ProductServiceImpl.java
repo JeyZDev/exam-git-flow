@@ -23,7 +23,6 @@ import com.sm.jeyz9.storemateapi.repository.ProductStatusRepository;
 import com.sm.jeyz9.storemateapi.repository.ProductStockRepository;
 import com.sm.jeyz9.storemateapi.repository.ReviewRepository;
 import com.sm.jeyz9.storemateapi.services.ProductService;
-import com.sm.jeyz9.storemateapi.services.SupabaseService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -47,7 +46,6 @@ public class ProductServiceImpl implements ProductService {
     private final ProductStatusRepository productStatusRepository;
     private final CategoryRepository categoryRepository;
     private final ProductStockRepository productStockRepository;
-    private final SupabaseService supabaseService;
     private final ReviewRepository reviewRepository;
     private final ModelMapper modelMapper;
     private final ProductImageRepository productImageRepository;
@@ -57,14 +55,12 @@ public class ProductServiceImpl implements ProductService {
                               ProductStatusRepository productStatusRepository,
                               CategoryRepository categoryRepository,
                               ProductStockRepository productStockRepository,
-                              SupabaseService supabaseService,
                               ReviewRepository reviewRepository,
                               ModelMapper modelMapper, ProductImageRepository productImageRepository) {
         this.productRepository = productRepository;
         this.productStatusRepository = productStatusRepository;
         this.categoryRepository = categoryRepository;
         this.productStockRepository = productStockRepository;
-        this.supabaseService = supabaseService;
         this.reviewRepository = reviewRepository;
         this.modelMapper = modelMapper;
         this.productImageRepository = productImageRepository;
@@ -96,8 +92,6 @@ public class ProductServiceImpl implements ProductService {
                     .build();
             
             productStockRepository.save(productStock);
-            
-            supabaseService.saveProductImages(product.getId(), files);
             
             return "Add product success.";
         }catch(WebException e) {
