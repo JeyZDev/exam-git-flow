@@ -5,7 +5,6 @@ import com.sm.jeyz9.storemateapi.dto.LoginDTO;
 import com.sm.jeyz9.storemateapi.dto.PasswordResetDTO;
 import com.sm.jeyz9.storemateapi.dto.RegisterDTO;
 import com.sm.jeyz9.storemateapi.services.AuthService;
-import com.sm.jeyz9.storemateapi.services.ThaibluksmsService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +23,10 @@ import java.util.Map;
 @RequestMapping("/api/v1/auth")
 public class AuthController {
     private final AuthService authService;
-    private final ThaibluksmsService thaibluksmsService;
 
     @Autowired
-    public AuthController(AuthService authService, ThaibluksmsService thaibluksmsService) {
+    public AuthController(AuthService authService) {
         this.authService = authService;
-        this.thaibluksmsService = thaibluksmsService;
     }
 
     @Operation(
@@ -52,15 +49,6 @@ public class AuthController {
                 "token", token,
                 "type", "Bearer"
         ));
-    }
-
-    @Operation(
-            summary = "ลืมรหัสผ่าน",
-            description = "ใช้สำหรับส่งอีเมลรีเซ็ตรหัสผ่าน"
-    )
-    @PostMapping("/forgot-password")
-    public ResponseEntity<String> forgotPassword(@RequestParam String email) {
-        return new ResponseEntity<>(thaibluksmsService.sendEmailResetPassword(email), HttpStatus.CREATED);
     }
 
     @Operation(
