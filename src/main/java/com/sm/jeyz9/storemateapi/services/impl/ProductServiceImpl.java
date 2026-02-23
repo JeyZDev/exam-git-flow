@@ -194,6 +194,14 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
+    @Transactional
+    @Override
+    public void removeProduct(Long id) {
+        Product product = productRepository.findById(id).orElseThrow(() -> new WebException(HttpStatus.NOT_FOUND, "Product not found."));
+        productStockRepository.deleteAllFromProductId(id);
+        productRepository.delete(product);
+    }
+
     private List<ProductDTO> mapToProductDTO(List<Product> products) {
         return products.stream().map(p -> 
                     ProductDTO.builder()

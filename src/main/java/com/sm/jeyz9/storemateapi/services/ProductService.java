@@ -16,5 +16,5 @@ public interface ProductService {
     ProductDetailsDTO getProductDetails(Long id);
 //    String updateProduct(Long id, Product request);
 //    List<Product> getAllProduct();
-//    void removeProduct();
+    void removeProduct(Long id);
 }

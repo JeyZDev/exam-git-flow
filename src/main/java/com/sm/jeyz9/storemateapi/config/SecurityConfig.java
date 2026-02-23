@@ -73,6 +73,7 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.POST,
                                         "/api/v1/auth/change-password"
                                 ).authenticated()
+                                .requestMatchers(HttpMethod.DELETE, "/api/v1/products/{id}").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .addFilterBefore(
